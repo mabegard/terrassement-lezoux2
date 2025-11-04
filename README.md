@@ -1,36 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bland Terrassement - Site Web Professionnel
 
-## Getting Started
+Site web professionnel pour **Bland Terrassement**, artisan terrassier à Lezoux depuis 13 ans.
 
-First, run the development server:
+## 🚀 Technologies utilisées
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Next.js 16** (App Router)
+- **TypeScript**
+- **Tailwind CSS 4**
+- **React 19**
+
+## 📁 Structure du projet
+
+```
+app/
+├── page.tsx          # Page d'accueil
+├── layout.tsx        # Layout principal avec Header et Footer
+├── prestations/      # Page des prestations
+├── galerie/          # Galerie de réalisations
+├── avis/             # Avis clients
+└── contact/          # Formulaire de contact
+
+components/
+├── Header.tsx        # En-tête avec navigation
+└── Footer.tsx        # Pied de page
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Démarrage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Installation des dépendances
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm install
+```
 
-## Learn More
+### Lancer le serveur de développement
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Ouvrez [http://localhost:3000](http://localhost:3000) dans votre navigateur.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Créer une version de production
 
-## Deploy on Vercel
+```bash
+pnpm build
+pnpm start
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📝 Personnalisation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Modifier les informations de contact
+
+Éditez les fichiers suivants :
+- `components/Header.tsx` - Logo et navigation
+- `components/Footer.tsx` - Coordonnées dans le footer
+- `app/contact/page.tsx` - Informations de contact
+
+### Ajouter des photos dans la galerie
+
+1. Placez vos images dans le dossier `public/`
+2. Modifiez `app/galerie/page.tsx` pour référencer vos images
+
+### Intégrer les avis Google
+
+La page avis affiche actuellement les statistiques réelles (30+ avis, 5/5 étoiles).
+
+**Option 1 : Ajouter manuellement les avis**
+1. Allez sur votre page Google My Business
+2. Copiez les avis (nom, date, note, commentaire)
+3. Ajoutez-les dans `app/avis/page.tsx` dans le tableau `avisGoogle`
+
+**Option 2 : Utiliser un widget automatique (recommandé)**
+Plusieurs services permettent d'intégrer automatiquement les avis Google :
+- **Elfsight** : https://elfsight.com/fr/google-reviews-widget/
+- **Trustindex** : https://www.trustindex.io/
+- **Reviews On Website** : https://www.reviewsonmywebsite.com/
+
+Pour intégrer un widget :
+1. Créez un compte sur le service de votre choix
+2. Connectez votre Google My Business
+3. Personnalisez l'apparence du widget
+4. Copiez le code d'intégration
+5. Ajoutez-le dans `components/GoogleReviews.tsx` ou directement dans `app/avis/page.tsx`
+
+**Option 3 : Utiliser l'API Google Places**
+Pour une intégration personnalisée, vous pouvez utiliser l'API Google Places :
+1. Créez une clé API sur Google Cloud Console
+2. Activez l'API Google Places
+3. Utilisez le composant `GoogleReviews.tsx` pour faire les appels API
+
+### Personnaliser les couleurs
+
+Les couleurs principales sont définies avec Tailwind CSS :
+- Orange principal : `orange-600` / `orange-700`
+- Modifiez les classes dans les composants pour changer les couleurs
+
+## 🌐 Déploiement
+
+### Sur Vercel (recommandé)
+
+1. Créez un compte sur [Vercel](https://vercel.com)
+2. Importez votre projet depuis GitHub
+3. Vercel détectera automatiquement Next.js et déploiera
+
+### Autres plateformes
+
+Le site peut être déployé sur n'importe quelle plateforme supportant Next.js :
+- Netlify
+- AWS
+- Google Cloud
+- Votre propre serveur
+
+## 📞 Informations de contact
+
+- **Téléphone** : 06 74 46 95 81
+- **Email** : bland.terrassement@gmail.com
+- **Adresse** : 82 Rue Felix Duchasseint, 63190 LEZOUX
+
+## 📄 Licence
+
+Tous droits réservés - Bland Terrassement © 2024
