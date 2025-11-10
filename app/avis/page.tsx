@@ -113,10 +113,10 @@ export default function Avis() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
-            Avis de nos Clients
+            Avis de mes clients
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            La satisfaction de nos clients est notre priorité. Découvrez leurs
+            La satisfaction de mes clients est ma priorité. Découvrez leurs
             témoignages sur Google.
           </p>
         </div>
@@ -203,15 +203,29 @@ export default function Avis() {
           </div>
         )}
 
-        {/* Bloc d'information désactivé pour une expérience sans message intrusif
-            Lorsque l'API n'est pas configurée, on affiche simplement les avis de démonstration. */}
+        {!reviewsData?.success && !loading && (
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8 max-w-4xl mx-auto">
+            <h3 className="text-lg font-bold mb-2 text-blue-900">
+              🔧 Configuration requise pour afficher les vrais avis Google
+            </h3>
+            <p className="text-blue-800 mb-4">
+              Pour afficher automatiquement vos {statsGoogle.nombreAvis}+ avis
+              Google, vous devez configurer l'API Google Places. Consultez le
+              fichier <code className="bg-blue-100 px-2 py-1 rounded">README.md</code>{" "}
+              pour les instructions détaillées.
+            </p>
+            <p className="text-blue-800 text-sm">
+              En attendant, nous affichons des exemples d'avis ci-dessous.
+            </p>
+          </div>
+        )}
 
         {/* Liste des avis */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">
             {reviewsData?.success
               ? "Avis Google en direct"
-              : "Avis récents de nos clients"}
+              : "Avis récents de mes clients"}
           </h2>
           {avisAfficher.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -284,17 +298,17 @@ export default function Avis() {
         {/* CTA */}
         <div className="mt-12 bg-orange-600 text-white p-8 rounded-lg text-center max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold mb-4">
-            Vous aussi, faites-nous confiance !
+            Vous aussi, faites-moi confiance !
           </h2>
           <p className="text-lg mb-6 text-orange-100">
-            Contactez-nous pour discuter de votre projet et obtenir un devis
+            Contactez-moi pour discuter de votre projet et obtenir un devis
             gratuit.
           </p>
           <Link
             href="/contact"
             className="bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block"
           >
-            Nous contacter
+            Me contacter
           </Link>
         </div>
       </div>

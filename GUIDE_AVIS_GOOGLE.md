@@ -48,7 +48,6 @@ Cette méthode récupère automatiquement vos avis Google en temps réel.
 GOOGLE_PLACE_ID=VOTRE_PLACE_ID_ICI
 GOOGLE_PLACES_API_KEY=VOTRE_CLE_API_ICI
 ```
-
 3. **Important** : Le fichier `.env.local` est déjà dans `.gitignore`, vos clés ne seront pas partagées publiquement.
 
 ### Étape 4 : Redémarrer le serveur

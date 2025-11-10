@@ -30,8 +30,7 @@ export async function GET() {
     const data = await response.json();
 
     if (data.status !== "OK") {
-      const msg = `Erreur API Google: ${data.status}${data.error_message ? ` - ${data.error_message}` : ""}`;
-      throw new Error(msg);
+      throw new Error(`Erreur API Google: ${data.status}`);
     }
 
     const result = data.result;

@@ -1,41 +1,53 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Header() {
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
+    <header className="bg-white shadow-sm sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          <Link href="/" className="text-2xl font-bold text-orange-600">
-            Bland Terrassement
+          <Link href="/" className="flex items-center gap-3 group">
+            <Image
+              src="/logo.png"
+              alt="Logo Bland Terrassement"
+              width={80}
+              height={80}
+              priority
+              className="object-contain logo-img block"
+              style={{ maxHeight: '80px', maxWidth: '80px' }}
+            />
+            <span className="text-2xl font-bold text-orange-600 group-hover:text-orange-700 transition-colors">
+              Bland Terrassement
+            </span>
           </Link>
-          <nav className="hidden md:flex space-x-6">
+          <nav className="hidden md:flex items-center space-x-6">
             <Link
               href="/"
-              className="text-gray-700 hover:text-orange-600 transition-colors"
+              className="inline-flex items-center leading-none text-gray-700 hover:text-orange-600 transition-colors"
             >
               Accueil
             </Link>
             <Link
               href="/prestations"
-              className="text-gray-700 hover:text-orange-600 transition-colors"
+              className="inline-flex items-center leading-none text-gray-700 hover:text-orange-600 transition-colors"
             >
               Prestations
             </Link>
             <Link
               href="/galerie"
-              className="text-gray-700 hover:text-orange-600 transition-colors"
+              className="inline-flex items-center leading-none text-gray-700 hover:text-orange-600 transition-colors"
             >
               Galerie
             </Link>
             <Link
               href="/avis"
-              className="text-gray-700 hover:text-orange-600 transition-colors"
+              className="inline-flex items-center leading-none text-gray-700 hover:text-orange-600 transition-colors"
             >
               Avis
             </Link>
             <Link
               href="/contact"
-              className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition-colors"
+              className="inline-flex items-center leading-none bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition-colors"
             >
               Contact
             </Link>

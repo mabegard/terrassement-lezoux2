@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -6,7 +7,8 @@ export default function Home() {
       {/* Section Héro */}
       <section className="bg-gradient-to-r from-orange-600 to-orange-700 text-white py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl">
+          <div className="flex flex-col md:flex-row items-center gap-10">
+            <div className="max-w-3xl">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
               Bland Terrassement
             </h1>
@@ -29,8 +31,19 @@ export default function Home() {
                 href="/prestations"
                 className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-600 transition-colors text-center"
               >
-                Nos prestations
+                Mes prestations
               </Link>
+            </div>
+            </div>
+            <div className="w-full md:w-auto">
+              <Image
+                src="/hero.jpg"
+                alt="Engin de chantier"
+                width={600}
+                height={400}
+                className="w-full md:w-[560px] h-72 md:h-80 object-cover object-center md:object-right rounded-lg shadow-lg"
+                priority
+              />
             </div>
           </div>
         </div>
@@ -41,23 +54,23 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-gray-900">
-              Qui sommes-nous ?
+              Qui suis-je ?
             </h2>
             <div className="bg-white p-8 rounded-lg shadow-lg">
               <p className="text-lg text-gray-700 mb-4">
-                <strong>Yannick Bland</strong> est artisan terrassier depuis{" "}
-                <strong>13 ans</strong>. Fort de son expérience, il met son
-                savoir-faire et son professionnalisme au service de vos projets
+                <strong>Yannick Bland</strong> je suisartisan terrassier depuis{" "}
+                <strong>13 ans</strong>. Fort de mon expérience, je mets mon
+                savoir-faire et mon professionnalisme au service de vos projets
                 de terrassement et d'aménagement extérieur.
               </p>
               <p className="text-lg text-gray-700 mb-4">
                 Que ce soit pour des travaux de terrassement, de démolition, de
                 nivellement, d'aménagement de cour, de création d'allées ou
-                encore de travaux publics, nous vous accompagnons de A à Z
-                dans la réalisation de vos projets.
+                encore de travaux publics, je vous accompagne de A à Z
+                dans la réalisation de votre projet.
               </p>
               <p className="text-lg text-gray-700">
-                Basé à <strong>Lezoux (63190)</strong>, nous intervenons dans
+                Basé à <strong>Lezoux (63190)</strong>, j'interviens dans
                 toute la région Auvergne-Rhône-Alpes.
               </p>
             </div>
@@ -69,7 +82,7 @@ export default function Home() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
-            Nos prestations
+            Mes prestations
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
@@ -135,7 +148,7 @@ export default function Home() {
               href="/prestations"
               className="bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-700 transition-colors inline-block"
             >
-              Voir toutes nos prestations
+              Voir toutes mes prestations
             </Link>
           </div>
         </div>
@@ -148,13 +161,13 @@ export default function Home() {
             Besoin d'un devis ?
           </h2>
           <p className="text-xl mb-8 text-orange-100">
-            Contactez-nous pour un devis gratuit et personnalisé
+            Contactez-moi pour un devis gratuit et personnalisé
           </p>
           <Link
             href="/contact"
             className="bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block"
           >
-            Nous contacter
+            Me contacter
           </Link>
         </div>
       </section>

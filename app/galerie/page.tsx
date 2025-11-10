@@ -1,3 +1,7 @@
+import fs from "fs";
+import path from "path";
+import Image from "next/image";
+
 export const metadata = {
   title: "Galerie - Bland Terrassement",
   description:
@@ -5,45 +9,40 @@ export const metadata = {
 };
 
 export default function Galerie() {
-  // Placeholder pour les images - à remplacer par vos vraies photos
-  const realisations = [
-    {
-      id: 1,
-      title: "Terrassement de terrain",
-      category: "Terrassement",
-      description: "Préparation de terrain pour construction",
-    },
-    {
-      id: 2,
-      title: "Aménagement de cour",
-      category: "Aménagement",
-      description: "Création d'une cour en gravier",
-    },
-    {
-      id: 3,
-      title: "Démolition de bâtiment",
-      category: "Démolition",
-      description: "Démolition sélective d'un ancien bâtiment",
-    },
-    {
-      id: 4,
-      title: "Création d'allée",
-      category: "Aménagement",
-      description: "Allée gravillonnée pour accès",
-    },
-    {
-      id: 5,
-      title: "Nivellement de terrain",
-      category: "Terrassement",
-      description: "Nivellement pour aménagement paysager",
-    },
-    {
-      id: 6,
-      title: "Travaux publics",
-      category: "Travaux publics",
-      description: "Aménagement de voirie",
-    },
-  ];
+  // Lit les fichiers du dossier public/galerie
+  const galleryDir = path.join(process.cwd(), "public", "galerie");
+  let images: { src: string; title: string; description: string }[] = [];
+  // Charge les métadonnées facultatives depuis gallery.json si présent
+  let metaByFile: Record<string, { title?: string; description?: string }> = {};
+  try {
+    const metaRaw = fs.readFileSync(path.join(galleryDir, "gallery.json"), "utf-8");
+    const metaObj = JSON.parse(metaRaw) as Array<{ file: string; title?: string; description?: string }>;
+    for (const entry of metaObj) {
+      if (entry?.file) metaByFile[entry.file] = { title: entry.title, description: entry.description };
+    }
+  } catch (_) {
+    // Fichier absent ou invalide: on ignore et on utilisera les valeurs par défaut
+  }
+  try {
+    const files = fs.readdirSync(galleryDir);
+    images = files
+      .filter((f) => /(\.png|\.jpg|\.jpeg|\.webp|\.avif)$/i.test(f))
+      .map((f) => {
+        const nameWithoutExt = f.replace(/\.[^.]+$/, "");
+        const humanized = nameWithoutExt
+          .replace(/[\-_]+/g, " ")
+          .replace(/\b\w/g, (m) => m.toUpperCase());
+        const fallbackTitle = humanized.trim() || "Réalisation de terrassement";
+        const fallbackDescription = `${fallbackTitle} – terrassement et aménagement extérieur à Lezoux.`;
+        const meta = metaByFile[f] || {};
+        const title = (meta.title || fallbackTitle).trim();
+        const description = (meta.description || fallbackDescription).trim();
+        return { src: `/galerie/${f}`, title, description };
+      });
+  } catch (_) {
+    // Si le dossier n'existe pas, on garde un tableau vide
+    images = [];
+  }
 
   return (
     <div className="py-16 bg-gray-50">
@@ -58,32 +57,32 @@ export default function Galerie() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {realisations.map((realisation) => (
-            <div
-              key={realisation.id}
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
-            >
-              <div className="aspect-video bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center">
-                <div className="text-center text-white p-4">
-                  <div className="text-5xl mb-2">📷</div>
-                  <p className="text-sm opacity-90">
-                    Photo à ajouter
-                  </p>
+        {images.length === 0 ? (
+          <div className="max-w-3xl mx-auto bg-white rounded-lg shadow p-8 text-center">
+            <div className="text-5xl mb-4">📷</div>
+            <p className="text-gray-700 mb-2">
+              Aucune photo trouvée. Ajoutez vos images dans le dossier <code>public/galerie</code>.
+            </p>
+            <p className="text-gray-500 text-sm">
+              Formats acceptés: .jpg, .jpeg, .png, .webp, .avif
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr gap-6 max-w-6xl mx-auto">
+            {images.map((img) => (
+              <figure key={img.src} className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 ease-out lg:hover:col-span-2 lg:hover:row-span-2 hover:z-10" itemScope itemType="https://schema.org/ImageObject">
+                <div className="aspect-video relative overflow-hidden">
+                  <Image src={img.src} alt={img.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                 </div>
-              </div>
-              <div className="p-6">
-                <span className="text-sm text-orange-600 font-semibold">
-                  {realisation.category}
-                </span>
-                <h3 className="text-xl font-bold mt-2 mb-2 text-gray-900">
-                  {realisation.title}
-                </h3>
-                <p className="text-gray-600">{realisation.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+                <figcaption className="p-4 border-t border-gray-100">
+                  <h3 className="text-base font-semibold text-gray-900" itemProp="name">{img.title}</h3>
+                  <p className="text-sm text-gray-600 mt-1" itemProp="caption">{img.description}</p>
+                  <meta itemProp="contentUrl" content={img.src} />
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        )}
 
         <div className="mt-12 text-center">
           <p className="text-gray-600 mb-4">
