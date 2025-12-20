@@ -203,22 +203,6 @@ export default function Avis() {
           </div>
         )}
 
-        {!reviewsData?.success && !loading && (
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8 max-w-4xl mx-auto">
-            <h3 className="text-lg font-bold mb-2 text-blue-900">
-              🔧 Configuration requise pour afficher les vrais avis Google
-            </h3>
-            <p className="text-blue-800 mb-4">
-              Pour afficher automatiquement vos {statsGoogle.nombreAvis}+ avis
-              Google, vous devez configurer l'API Google Places. Consultez le
-              fichier <code className="bg-blue-100 px-2 py-1 rounded">README.md</code>{" "}
-              pour les instructions détaillées.
-            </p>
-            <p className="text-blue-800 text-sm">
-              En attendant, nous affichons des exemples d'avis ci-dessous.
-            </p>
-          </div>
-        )}
 
         {/* Liste des avis */}
         <div className="mb-8">
