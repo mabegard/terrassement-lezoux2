@@ -118,10 +118,10 @@ export default function Prestations() {
 
         <div className="mt-16 bg-orange-600 text-white p-8 rounded-lg text-center max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold mb-4">
-            Un projet en tête ? Contactez-nous !
+            Un projet en tête ? Contactez-moi !
           </h2>
           <p className="text-lg mb-6 text-orange-100">
-            Nous vous proposons un devis gratuit et personnalisé pour tous vos
+            Je vous propose un devis gratuit et personnalisé pour tous vos
             projets de terrassement.
           </p>
           <a

@@ -68,15 +68,30 @@ export default function Galerie() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {images.map((img) => (
-              <figure key={img.src} className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 ease-out lg:hover:col-span-2 lg:hover:row-span-2 hover:z-10" itemScope itemType="https://schema.org/ImageObject">
+              <figure
+                key={img.src}
+                className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+                itemScope
+                itemType="https://schema.org/ImageObject"
+              >
                 <div className="aspect-video relative overflow-hidden">
-                  <Image src={img.src} alt={img.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+                  <Image
+                    src={img.src}
+                    alt={img.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
                 </div>
                 <figcaption className="p-4 border-t border-gray-100">
-                  <h3 className="text-base font-semibold text-gray-900" itemProp="name">{img.title}</h3>
-                  <p className="text-sm text-gray-600 mt-1" itemProp="caption">{img.description}</p>
+                  <h3 className="text-base font-semibold text-gray-900" itemProp="name">
+                    {img.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1" itemProp="caption">
+                    {img.description}
+                  </p>
                   <meta itemProp="contentUrl" content={img.src} />
                 </figcaption>
               </figure>
@@ -92,11 +107,10 @@ export default function Galerie() {
             href="/contact"
             className="bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-700 transition-colors inline-block"
           >
-            Contactez-nous
+            Contactez-moi
           </a>
         </div>
       </div>
     </div>
   );
 }
-

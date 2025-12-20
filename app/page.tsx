@@ -41,7 +41,7 @@ export default function Home() {
                 alt="Engin de chantier"
                 width={600}
                 height={400}
-                className="w-full md:w-[560px] h-72 md:h-80 object-cover object-center md:object-right rounded-lg shadow-lg"
+                className="w-full md:w-[560px] h-72 md:h-80 object-contain"
                 priority
               />
             </div>
