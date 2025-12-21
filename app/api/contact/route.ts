@@ -1,10 +1,25 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resendApiKey = process.env.RESEND_API_KEY;
+
+if (!resendApiKey) {
+  console.warn("RESEND_API_KEY n'est pas configurée. L'envoi d'emails ne fonctionnera pas.");
+}
+
+const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 export async function POST(request: NextRequest) {
   try {
+    // Vérifier que Resend est configuré
+    if (!resend || !resendApiKey) {
+      console.error("RESEND_API_KEY n'est pas configurée");
+      return NextResponse.json(
+        { error: "Configuration email manquante. Veuillez contacter l'administrateur." },
+        { status: 500 }
+      );
+    }
+
     const body = await request.json();
     const { nom, email, telephone, sujet, message } = body;
 
