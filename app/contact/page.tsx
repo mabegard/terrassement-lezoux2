@@ -14,6 +14,7 @@ export default function Contact() {
   const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(
     null
   );
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -42,8 +43,9 @@ export default function Contact() {
 
       const data = await response.json();
 
-      if (response.ok) {
+      if (response.ok && data.success) {
         setSubmitStatus("success");
+        setErrorMessage(null);
         setFormData({
           nom: "",
           email: "",
@@ -53,11 +55,13 @@ export default function Contact() {
         });
       } else {
         setSubmitStatus("error");
-        console.error("Erreur:", data.error);
+        setErrorMessage(data.error || "Une erreur est survenue. Veuillez réessayer.");
+        console.error("Erreur API:", data.error || "Erreur inconnue");
       }
     } catch (error) {
       console.error("Erreur:", error);
       setSubmitStatus("error");
+      setErrorMessage("Erreur de connexion. Veuillez vérifier votre connexion internet et réessayer.");
     } finally {
       setIsSubmitting(false);
     }
@@ -186,7 +190,7 @@ export default function Contact() {
 
               {submitStatus === "error" && (
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                  Une erreur est survenue. Veuillez réessayer.
+                  {errorMessage || "Une erreur est survenue. Veuillez réessayer."}
                 </div>
               )}
 
