@@ -31,19 +31,36 @@ export default function Contact() {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    // Simuler l'envoi du formulaire
-    // Dans un vrai projet, vous devriez créer une API route pour gérer l'envoi d'email
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus("success");
-      setFormData({
-        nom: "",
-        email: "",
-        telephone: "",
-        sujet: "",
-        message: "",
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
-    }, 1000);
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus("success");
+        setFormData({
+          nom: "",
+          email: "",
+          telephone: "",
+          sujet: "",
+          message: "",
+        });
+      } else {
+        setSubmitStatus("error");
+        console.error("Erreur:", data.error);
+      }
+    } catch (error) {
+      console.error("Erreur:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
