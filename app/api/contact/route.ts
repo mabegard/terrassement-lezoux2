@@ -32,8 +32,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Envoi de l'email via Resend
+    // Le domaine terrassement-lezoux.fr doit être vérifié sur Resend
     const { data, error } = await resend.emails.send({
-      from: "Contact Site Web <onboarding@resend.dev>", // À changer avec votre domaine vérifié
+      from: "Contact Bland Terrassement <contact@terrassement-lezoux.fr>",
       to: ["bland.terrassement@gmail.com"],
       replyTo: email,
       subject: `Nouveau message de contact - ${sujet}`,
