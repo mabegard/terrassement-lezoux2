@@ -59,12 +59,13 @@ export async function POST(request: NextRequest) {
       // Gestion des erreurs spécifiques Resend
       let errorMessage = "Erreur lors de l'envoi de l'email";
       const errorMsg = error.message || String(error);
+      const statusCode = 'statusCode' in error ? (error.statusCode as number) : undefined;
       
       if (errorMsg.includes("domain") || errorMsg.includes("Domain")) {
         errorMessage = "Le domaine terrassement-lezoux.fr n'est pas encore vérifié sur Resend. Veuillez vérifier votre domaine dans les paramètres Resend ou utiliser onboarding@resend.dev temporairement.";
-      } else if (errorMsg.includes("API key") || errorMsg.includes("api key") || error.statusCode === 401) {
+      } else if (errorMsg.includes("API key") || errorMsg.includes("api key") || statusCode === 401) {
         errorMessage = "Clé API Resend invalide ou manquante. Veuillez vérifier que RESEND_API_KEY est configurée sur Vercel.";
-      } else if (error.statusCode === 403) {
+      } else if (statusCode === 403) {
         errorMessage = "Permission refusée. Vous ne pouvez envoyer qu'à votre adresse email de compte (mabegard@gmail.com) jusqu'à ce que le domaine soit vérifié.";
       } else if (errorMsg.includes("testing emails")) {
         errorMessage = "En mode test, vous ne pouvez envoyer qu'à votre adresse email de compte Resend (mabegard@gmail.com).";
@@ -74,7 +75,7 @@ export async function POST(request: NextRequest) {
         { 
           error: errorMessage, 
           details: errorMsg,
-          statusCode: error.statusCode,
+          statusCode: statusCode,
           fullError: process.env.NODE_ENV === 'development' ? error : undefined
         },
         { status: 500 }
