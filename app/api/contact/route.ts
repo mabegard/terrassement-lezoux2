@@ -32,10 +32,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Envoi de l'email via Resend
-    // Le domaine terrassement-lezoux.fr doit être vérifié sur Resend
+    // TEMPORAIRE : Utilise onboarding@resend.dev car le domaine n'est pas encore vérifié
+    // Une fois terrassement-lezoux.fr vérifié sur Resend, changez pour contact@terrassement-lezoux.fr
+    // En mode test, Resend n'envoie qu'à l'adresse email du compte (mabegard@gmail.com)
+    const recipientEmail = process.env.RESEND_RECIPIENT_EMAIL || "mabegard@gmail.com";
+    
     const { data, error } = await resend.emails.send({
-      from: "Contact Bland Terrassement <contact@terrassement-lezoux.fr>",
-      to: ["bland.terrassement@gmail.com"],
+      from: "Contact Bland Terrassement <onboarding@resend.dev>",
+      to: [recipientEmail],
       replyTo: email,
       subject: `Nouveau message de contact - ${sujet}`,
       html: `
@@ -50,9 +54,29 @@ export async function POST(request: NextRequest) {
     });
 
     if (error) {
-      console.error("Erreur Resend:", error);
+      console.error("Erreur Resend complète:", JSON.stringify(error, null, 2));
+      
+      // Gestion des erreurs spécifiques Resend
+      let errorMessage = "Erreur lors de l'envoi de l'email";
+      const errorMsg = error.message || String(error);
+      
+      if (errorMsg.includes("domain") || errorMsg.includes("Domain")) {
+        errorMessage = "Le domaine terrassement-lezoux.fr n'est pas encore vérifié sur Resend. Veuillez vérifier votre domaine dans les paramètres Resend ou utiliser onboarding@resend.dev temporairement.";
+      } else if (errorMsg.includes("API key") || errorMsg.includes("api key") || error.statusCode === 401) {
+        errorMessage = "Clé API Resend invalide ou manquante. Veuillez vérifier que RESEND_API_KEY est configurée sur Vercel.";
+      } else if (error.statusCode === 403) {
+        errorMessage = "Permission refusée. Vous ne pouvez envoyer qu'à votre adresse email de compte (mabegard@gmail.com) jusqu'à ce que le domaine soit vérifié.";
+      } else if (errorMsg.includes("testing emails")) {
+        errorMessage = "En mode test, vous ne pouvez envoyer qu'à votre adresse email de compte Resend (mabegard@gmail.com).";
+      }
+      
       return NextResponse.json(
-        { error: "Erreur lors de l'envoi de l'email" },
+        { 
+          error: errorMessage, 
+          details: errorMsg,
+          statusCode: error.statusCode,
+          fullError: process.env.NODE_ENV === 'development' ? error : undefined
+        },
         { status: 500 }
       );
     }
