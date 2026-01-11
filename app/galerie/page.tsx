@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import Image from "next/image";
+import GalleryClient from "@/components/GalleryClient";
 
 export const metadata = {
   title: "Galerie - Bland Terrassement",
@@ -68,26 +68,7 @@ export default function Galerie() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {images.map((img) => (
-              <figure
-                key={img.src}
-                className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
-                itemScope
-                itemType="https://schema.org/ImageObject"
-              >
-                <div className="aspect-video relative overflow-hidden">
-                  <Image
-                    src={img.src}
-                    alt={img.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                </div>
-              </figure>
-            ))}
-          </div>
+          <GalleryClient images={images} />
         )}
 
         <div className="mt-12 text-center">
