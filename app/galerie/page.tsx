@@ -85,15 +85,6 @@ export default function Galerie() {
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 </div>
-                <figcaption className="p-4 border-t border-gray-100">
-                  <h3 className="text-base font-semibold text-gray-900" itemProp="name">
-                    {img.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 mt-1" itemProp="caption">
-                    {img.description}
-                  </p>
-                  <meta itemProp="contentUrl" content={img.src} />
-                </figcaption>
               </figure>
             ))}
           </div>
