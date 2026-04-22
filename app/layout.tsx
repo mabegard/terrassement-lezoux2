@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MobileActionBar from "@/components/MobileActionBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bland Terrassement - Artisan terrassier à Lezoux depuis 13 ans",
+  title: "Bland Terrassement - Artisan terrassier à Lezoux depuis 14 ans",
   description:
     "Bland Terrassement, artisan terrassier à Lezoux. Spécialisé dans tous types de travaux de terrassement, aménagement extérieur et travaux publics. Devis gratuit.",
   keywords:
@@ -34,7 +35,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Header />
-        <main className="min-h-screen">{children}</main>
+        <main className="min-h-screen pt-20">{children}</main>
+        <MobileActionBar />
         <Footer />
         <Analytics />
       </body>

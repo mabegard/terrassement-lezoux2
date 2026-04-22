@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
     // TEMPORAIRE : Utilise onboarding@resend.dev car le domaine n'est pas encore vérifié
     // Une fois terrassement-lezoux.fr vérifié sur Resend, changez pour contact@terrassement-lezoux.fr
     // En mode test, Resend n'envoie qu'à l'adresse email du compte (mabegard@gmail.com)
-    const recipientEmail = process.env.RESEND_RECIPIENT_EMAIL || "mabegard@gmail.com";
+    const recipientEmail = process.env.RESEND_RECIPIENT_EMAIL || "bland.terrassement@gmail.com";
     
     const { data, error } = await resend.emails.send({
       from: "Contact Bland Terrassement <onboarding@resend.dev>",

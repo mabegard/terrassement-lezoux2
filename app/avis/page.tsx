@@ -93,7 +93,7 @@ export default function Avis() {
       author_name: "Marc T.",
       rating: 5,
       relative_time_description: "Il y a 3 mois",
-      text: "13 ans d'expérience, ça se voit ! Travail soigné, respect des délais et bon rapport qualité-prix. Je n'hésiterai pas à refaire appel à ses services.",
+      text: "14 ans d'expérience, ça se voit ! Travail soigné, respect des délais et bon rapport qualité-prix. Je n'hésiterai pas à refaire appel à ses services.",
     },
   ];
 
@@ -122,7 +122,7 @@ export default function Avis() {
         </div>
 
         {/* Note moyenne Google */}
-        <div className="bg-white rounded-lg shadow-md p-8 mb-8 max-w-2xl mx-auto text-center">
+        <div className="card-relief p-8 mb-8 max-w-2xl mx-auto text-center">
           <div className="flex items-center justify-center gap-4 mb-4">
             <div className="text-6xl font-bold text-orange-600">
               {statsGoogle.noteMoyenne.toFixed(1)}
@@ -216,7 +216,7 @@ export default function Avis() {
               {avisAfficher.map((avis, index) => (
                 <div
                   key={'id' in avis ? avis.id : `google-${index}`}
-                  className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                  className="card-relief p-6"
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
@@ -290,7 +290,7 @@ export default function Avis() {
           </p>
           <Link
             href="/contact"
-            className="bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block"
+            className="btn btn-lg btn-white btn-relief"
           >
             Me contacter
           </Link>

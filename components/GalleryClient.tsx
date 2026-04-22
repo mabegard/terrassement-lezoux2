@@ -23,7 +23,7 @@ export default function GalleryClient({ images }: GalleryClientProps) {
         {images.map((img) => (
           <figure
             key={img.src}
-            className="group bg-white rounded-lg shadow-md overflow-hidden cursor-zoom-in hover:shadow-lg transition-all duration-200"
+            className="group card-relief overflow-hidden cursor-zoom-in transition-all duration-200"
             itemScope
             itemType="https://schema.org/ImageObject"
             onClick={() => setSelectedImage(img)}
@@ -53,4 +53,6 @@ export default function GalleryClient({ images }: GalleryClientProps) {
     </>
   );
 }
+
+
 

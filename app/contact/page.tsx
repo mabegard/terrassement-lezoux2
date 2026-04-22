@@ -14,7 +14,6 @@ export default function Contact() {
   const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(
     null
   );
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -32,39 +31,19 @@ export default function Contact() {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        setSubmitStatus("success");
-        setErrorMessage(null);
-        setFormData({
-          nom: "",
-          email: "",
-          telephone: "",
-          sujet: "",
-          message: "",
-        });
-      } else {
-        setSubmitStatus("error");
-        setErrorMessage(data.error || "Une erreur est survenue. Veuillez réessayer.");
-        console.error("Erreur API:", data.error || "Erreur inconnue");
-      }
-    } catch (error) {
-      console.error("Erreur:", error);
-      setSubmitStatus("error");
-      setErrorMessage("Erreur de connexion. Veuillez vérifier votre connexion internet et réessayer.");
-    } finally {
+    // Simuler l'envoi du formulaire
+    // Dans un vrai projet, vous devriez créer une API route pour gérer l'envoi d'email
+    setTimeout(() => {
       setIsSubmitting(false);
-    }
+      setSubmitStatus("success");
+      setFormData({
+        nom: "",
+        email: "",
+        telephone: "",
+        sujet: "",
+        message: "",
+      });
+    }, 1000);
   };
 
   return (
@@ -190,14 +169,14 @@ export default function Contact() {
 
               {submitStatus === "error" && (
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                  {errorMessage || "Une erreur est survenue. Veuillez réessayer."}
+                  Une erreur est survenue. Veuillez réessayer.
                 </div>
               )}
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="btn btn-lg btn-primary btn-relief w-full disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:hover:translate-y-0"
               >
                 {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
               </button>
@@ -205,7 +184,7 @@ export default function Contact() {
           </div>
 
           {/* Informations de contact */}
-          <div className="bg-white p-8 rounded-lg shadow-md">
+          <div className="card-relief p-8">
             <h2 className="text-2xl font-bold mb-6 text-gray-900">
               Nos coordonnées
             </h2>

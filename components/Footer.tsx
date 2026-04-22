@@ -10,7 +10,7 @@ export default function Footer() {
               Bland Terrassement
             </h3>
             <p className="text-gray-300">
-              Artisan terrassier depuis 13 ans, spécialisé dans tous types de
+              Artisan terrassier depuis 14 ans, spécialisé dans tous types de
               travaux de terrassement et d'aménagement extérieur.
             </p>
           </div>

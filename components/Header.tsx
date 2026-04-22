@@ -1,11 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 10);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -15,8 +26,17 @@ export default function Header() {
     setIsMenuOpen(false);
   };
 
+  const isSolidHeader = useMemo(() => {
+    return !isHome || isScrolled || isMenuOpen;
+  }, [isHome, isMenuOpen, isScrolled]);
+
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <header
+      className={[
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        isSolidHeader ? "bg-white/90 backdrop-blur-md shadow-sm" : "bg-transparent",
+      ].join(" ")}
+    >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center gap-3 group">
@@ -27,46 +47,68 @@ export default function Header() {
               height={80}
               priority
               className="object-contain logo-img block"
-              style={{ maxHeight: '80px', maxWidth: '80px' }}
+              style={{ maxHeight: "80px", maxWidth: "80px" }}
             />
-            <span className="text-2xl font-bold text-orange-600 group-hover:text-orange-700 transition-colors">
+            <span
+              className={[
+                "text-2xl font-bold transition-colors",
+                isSolidHeader
+                  ? "text-orange-600 group-hover:text-orange-700"
+                  : "text-white group-hover:text-white/90",
+              ].join(" ")}
+            >
               Bland Terrassement
             </span>
           </Link>
           <nav className="hidden md:flex items-center space-x-6">
             <Link
               href="/"
-              className="inline-flex items-center leading-none text-gray-700 hover:text-orange-600 transition-colors"
+              className={[
+                "inline-flex items-center leading-none transition-colors",
+                isSolidHeader ? "text-gray-700 hover:text-orange-600" : "text-white/90 hover:text-white",
+              ].join(" ")}
             >
               Accueil
             </Link>
             <Link
               href="/prestations"
-              className="inline-flex items-center leading-none text-gray-700 hover:text-orange-600 transition-colors"
+              className={[
+                "inline-flex items-center leading-none transition-colors",
+                isSolidHeader ? "text-gray-700 hover:text-orange-600" : "text-white/90 hover:text-white",
+              ].join(" ")}
             >
               Prestations
             </Link>
             <Link
               href="/galerie"
-              className="inline-flex items-center leading-none text-gray-700 hover:text-orange-600 transition-colors"
+              className={[
+                "inline-flex items-center leading-none transition-colors",
+                isSolidHeader ? "text-gray-700 hover:text-orange-600" : "text-white/90 hover:text-white",
+              ].join(" ")}
             >
               Galerie
             </Link>
             <Link
               href="/avis"
-              className="inline-flex items-center leading-none text-gray-700 hover:text-orange-600 transition-colors"
+              className={[
+                "inline-flex items-center leading-none transition-colors",
+                isSolidHeader ? "text-gray-700 hover:text-orange-600" : "text-white/90 hover:text-white",
+              ].join(" ")}
             >
               Avis
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center leading-none bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition-colors"
+              className="btn btn-sm btn-primary btn-relief leading-none"
             >
               Contact
             </Link>
           </nav>
           <button 
-            className="md:hidden text-gray-700 hover:text-orange-600 transition-colors"
+            className={[
+              "md:hidden transition-colors",
+              isSolidHeader ? "text-gray-700 hover:text-orange-600" : "text-white hover:text-white/90",
+            ].join(" ")}
             onClick={toggleMenu}
             aria-label="Menu"
           >
@@ -103,7 +145,7 @@ export default function Header() {
         </div>
         {/* Menu mobile */}
         {isMenuOpen && (
-          <nav className="md:hidden border-t border-gray-200 py-4">
+          <nav className="md:hidden border-t border-gray-200 py-4 bg-white/95 backdrop-blur-md">
             <div className="flex flex-col space-y-4">
               <Link
                 href="/"
@@ -135,7 +177,7 @@ export default function Header() {
               </Link>
               <Link
                 href="/contact"
-                className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition-colors text-center"
+                className="btn btn-sm btn-primary btn-relief text-center"
                 onClick={closeMenu}
               >
                 Contact

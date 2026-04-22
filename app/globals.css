@@ -6,6 +6,40 @@
   --color-gray-50: #f9fafb;
 }
 
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg font-semibold transition-all select-none;
+  }
+
+  .btn-lg {
+    @apply px-8 py-3;
+  }
+
+  .btn-sm {
+    @apply px-4 py-2;
+  }
+
+  .btn-relief {
+    @apply shadow-lg shadow-black/20 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99];
+  }
+
+  .btn-primary {
+    @apply bg-orange-600 text-white hover:bg-orange-700;
+  }
+
+  .btn-white {
+    @apply bg-white text-orange-600 hover:bg-gray-50;
+  }
+
+  .btn-outline-white {
+    @apply bg-transparent border-2 border-white/90 text-white hover:bg-white/15 hover:border-white;
+  }
+
+  .card-relief {
+    @apply bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow;
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

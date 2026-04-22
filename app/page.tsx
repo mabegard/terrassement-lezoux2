@@ -1,49 +1,54 @@
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Home() {
   return (
     <div>
       {/* Section Héro */}
-      <section className="bg-gradient-to-r from-orange-600 to-orange-700 text-white py-20">
+      <section className="relative isolate overflow-hidden text-white py-20 -mt-20">
+        <div
+          className="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat scale-105 transition-transform duration-700 ease-out"
+          style={{
+            backgroundImage:
+              "url('https://www.grandstravaux.org/wp-content/uploads/2019/06/Terrassement-outils.jpg')",
+          }}
+          aria-hidden="true"
+        />
+        <div
+          className="absolute inset-0 -z-10 bg-gradient-to-r from-black/70 via-black/50 to-black/30"
+          aria-hidden="true"
+        />
+
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center gap-10">
-            <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Bland Terrassement
-            </h1>
-            <p className="text-xl md:text-2xl mb-4">
-              Artisan terrassier à Lezoux depuis 13 ans
-            </p>
-            <p className="text-lg mb-8 text-orange-100">
-              Spécialisé dans tous types de travaux de terrassement,
-              d'aménagement extérieur et de travaux publics. Expertise,
-              qualité et professionnalisme à votre service.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/contact"
-                className="bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center"
-              >
-                Demander un devis gratuit
-              </Link>
-              <Link
-                href="/prestations"
-                className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-600 transition-colors text-center"
-              >
-                Mes prestations
-              </Link>
-            </div>
-            </div>
-            <div className="w-full md:w-auto">
-              <Image
-                src="/hero.jpg"
-                alt="Engin de chantier"
-                width={600}
-                height={400}
-                className="w-full md:w-[560px] h-72 md:h-80 object-contain"
-                priority
-              />
+            <div
+              className="max-w-3xl"
+              style={{ textShadow: "0 3px 12px rgba(0, 0, 0, 0.45)" }}
+            >
+              <h1 className="text-5xl md:text-6xl font-bold mb-6">
+                Bland Terrassement
+              </h1>
+              <p className="text-xl md:text-2xl mb-4">
+                Artisan terrassier à Lezoux depuis 14 ans
+              </p>
+              <p className="text-lg mb-8 text-white">
+                Spécialisé dans tous types de travaux de terrassement,
+                d'aménagement extérieur et de travaux publics. Expertise,
+                qualité et professionnalisme à votre service.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="/contact"
+                  className="btn btn-lg btn-white btn-relief text-center"
+                >
+                  Demander un devis gratuit
+                </Link>
+                <Link
+                  href="/prestations"
+                  className="btn btn-lg btn-outline-white btn-relief text-center"
+                >
+                  Mes prestations
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -58,8 +63,8 @@ export default function Home() {
             </h2>
             <div className="bg-white p-8 rounded-lg shadow-lg">
               <p className="text-lg text-gray-700 mb-4">
-                <strong>Yannick Bland</strong> je suisartisan terrassier depuis{" "}
-                <strong>13 ans</strong>. Fort de mon expérience, je mets mon
+                <strong>Yannick Bland</strong> je suis artisan terrassier depuis{" "}
+                <strong>14 ans</strong>. Fort de mon expérience, je mets mon
                 savoir-faire et mon professionnalisme au service de vos projets
                 de terrassement et d'aménagement extérieur.
               </p>
@@ -85,7 +90,7 @@ export default function Home() {
             Mes prestations
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+            <div className="card-relief p-6">
               <div className="text-4xl mb-4">🚜</div>
               <h3 className="text-xl font-semibold mb-3 text-orange-600">
                 Terrassement
@@ -95,7 +100,7 @@ export default function Home() {
                 tous vos projets.
               </p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+            <div className="card-relief p-6">
               <div className="text-4xl mb-4">🏗️</div>
               <h3 className="text-xl font-semibold mb-3 text-orange-600">
                 Démolition
@@ -105,7 +110,7 @@ export default function Home() {
                 diverses.
               </p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+            <div className="card-relief p-6">
               <div className="text-4xl mb-4">📐</div>
               <h3 className="text-xl font-semibold mb-3 text-orange-600">
                 Nivellement
@@ -115,7 +120,7 @@ export default function Home() {
                 aménagements.
               </p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+            <div className="card-relief p-6">
               <div className="text-4xl mb-4">🏡</div>
               <h3 className="text-xl font-semibold mb-3 text-orange-600">
                 Aménagement extérieur
@@ -124,7 +129,7 @@ export default function Home() {
                 Création d'allées, de cours, de parkings et d'espaces verts.
               </p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+            <div className="card-relief p-6">
               <div className="text-4xl mb-4">🛣️</div>
               <h3 className="text-xl font-semibold mb-3 text-orange-600">
                 Travaux publics
@@ -133,7 +138,7 @@ export default function Home() {
                 Voiries, réseaux, assainissement et travaux d'infrastructure.
               </p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+            <div className="card-relief p-6">
               <div className="text-4xl mb-4">🌱</div>
               <h3 className="text-xl font-semibold mb-3 text-orange-600">
                 Évacuation de terre
@@ -146,7 +151,7 @@ export default function Home() {
           <div className="text-center mt-12">
             <Link
               href="/prestations"
-              className="bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-700 transition-colors inline-block"
+              className="btn btn-lg btn-primary btn-relief"
             >
               Voir toutes mes prestations
             </Link>
@@ -165,7 +170,7 @@ export default function Home() {
           </p>
           <Link
             href="/contact"
-            className="bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block"
+            className="btn btn-lg btn-white btn-relief"
           >
             Me contacter
           </Link>

@@ -23,7 +23,7 @@ export default function GalleryGrid({ images }: GalleryGridProps) {
         {images.map((img) => (
           <figure
             key={img.src}
-            className="group bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200"
+            className="group card-relief overflow-hidden cursor-pointer transition-shadow duration-200"
             itemScope
             itemType="https://schema.org/ImageObject"
             onClick={() => setSelectedImage(img)}

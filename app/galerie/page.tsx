@@ -77,7 +77,7 @@ export default function Galerie() {
           </p>
           <a
             href="/contact"
-            className="bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-700 transition-colors inline-block"
+            className="btn btn-lg btn-primary btn-relief"
           >
             Contactez-moi
           </a>

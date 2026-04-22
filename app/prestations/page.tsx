@@ -97,7 +97,7 @@ export default function Prestations() {
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+              className="card-relief p-8"
             >
               <div className="text-5xl mb-4">{service.icon}</div>
               <h2 className="text-2xl font-bold mb-4 text-orange-600">
@@ -126,7 +126,7 @@ export default function Prestations() {
           </p>
           <a
             href="/contact"
-            className="bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block"
+            className="btn btn-lg btn-white btn-relief"
           >
             Demander un devis
           </a>
