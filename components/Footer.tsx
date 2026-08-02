@@ -88,6 +88,9 @@ export default function Footer() {
             © {new Date().getFullYear()} Bland Terrassement - Tous droits
             réservés
           </p>
+          <p className="mt-3 text-[10px] leading-none text-gray-500">
+            Propulsé par Beg&apos;s Project 2025
+          </p>
         </div>
       </div>
     </footer>

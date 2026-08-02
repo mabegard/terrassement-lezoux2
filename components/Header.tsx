@@ -39,16 +39,17 @@ export default function Header() {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          <Link href="/" className="flex items-center gap-3 group">
-            <Image
-              src="/logo.png"
-              alt="Logo Bland Terrassement"
-              width={80}
-              height={80}
-              priority
-              className="object-contain logo-img block"
-              style={{ maxHeight: "80px", maxWidth: "80px" }}
-            />
+          <Link href="/" className="flex items-center gap-3 group shrink-0">
+            <span className="flex h-14 w-[4.25rem] shrink-0 items-center justify-center overflow-hidden rounded-md bg-white p-1 shadow-sm ring-1 ring-black/5">
+              <Image
+                src="/logo.png"
+                alt="Logo Bland Terrassement"
+                width={120}
+                height={100}
+                priority
+                className="object-contain logo-img block h-full w-full"
+              />
+            </span>
             <span
               className={[
                 "text-2xl font-bold transition-colors",
