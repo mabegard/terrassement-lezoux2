@@ -26,27 +26,28 @@ export default function Avis() {
     null
   );
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // Récupérer les avis Google
     fetch("/api/google-reviews")
       .then((res) => res.json())
       .then((data: GoogleReviewsData) => {
-        if (data.success && data.reviews) {
+        if (data.success && data.reviews?.length) {
           setReviewsData(data);
         } else {
-          // Si l'API n'est pas configurée, utiliser les avis de démonstration
+          // API absente / erreur : avis de démo, sans alerte bloquante
           setReviewsData({
             success: false,
-            error: data.error || "Configuration API manquante",
+            rating: data.rating,
+            totalReviews: data.totalReviews,
+            error: data.error,
           });
         }
         setLoading(false);
       })
       .catch((err) => {
         console.error("Erreur:", err);
-        setError("Impossible de charger les avis Google");
+        setReviewsData({ success: false });
         setLoading(false);
       });
   }, []);
@@ -166,7 +167,7 @@ export default function Avis() {
             Basé sur <strong>{statsGoogle.nombreAvis}+ avis</strong> sur Google
           </p>
           <a
-            href="https://www.google.com/maps/place/Bland+Terrassement"
+            href="https://share.google/Xi6dMTlLtsgpj7Mwg"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-orange-600 hover:text-orange-700 font-semibold transition-colors"
@@ -188,21 +189,11 @@ export default function Avis() {
           </a>
         </div>
 
-        {/* Message de statut */}
         {loading && (
           <div className="text-center mb-8">
             <p className="text-gray-600">Chargement des avis Google...</p>
           </div>
         )}
-
-        {error && (
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-8 max-w-4xl mx-auto">
-            <p className="text-yellow-800">
-              ⚠️ {error}. Affichage des avis de démonstration ci-dessous.
-            </p>
-          </div>
-        )}
-
 
         {/* Liste des avis */}
         <div className="mb-8">

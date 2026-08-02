@@ -118,12 +118,19 @@ Si vous préférez ajouter manuellement les avis :
 
 ---
 
-## 💰 Coûts
+## 💰 Coûts (rester à 0 €)
 
-L'API Google Places est **gratuite jusqu'à 1000 requêtes par jour**, puis :
-- $0.032 par requête supplémentaire
+Google Maps Platform offre ~**200 $ de crédit / mois**.  
+L'API du site est **mise en cache 24 h** (`/api/google-reviews`) :
 
-Pour un site qui affiche les avis une fois par jour (ou lors du rebuild), c'est largement gratuit.
+- ~1 appel Google par jour max (pas à chaque visite)
+- ~30 appels / mois → largement couvert par le crédit gratuit
+
+**Limite Google** : Place Details renvoie au maximum **5 avis** (plus la note et le total).  
+Pour voir tous les avis, le bouton « Voir tous les avis sur Google » reste disponible.
+
+Sur Vercel, ajoutez aussi les variables `GOOGLE_PLACE_ID` et `GOOGLE_PLACES_API_KEY` dans
+**Project → Settings → Environment Variables**, puis redéployez.
 
 ---
 

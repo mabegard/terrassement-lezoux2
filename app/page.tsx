@@ -34,11 +34,24 @@ export default function Home() {
               <p className="text-xl md:text-2xl mb-4">
                 Artisan terrassier à Lezoux depuis 2013
               </p>
-              <p className="text-lg mb-8 text-white">
+              <p className="text-lg mb-6 text-white">
                 Spécialisé dans tous types de travaux de terrassement,
                 d'aménagement extérieur et de travaux publics. Expertise,
                 qualité et professionnalisme à votre service.
               </p>
+              <Link
+                href="/avis"
+                className="inline-flex items-center gap-2 mb-8 text-white/95 hover:text-white transition-colors"
+              >
+                <span className="font-semibold">Avis</span>
+                <span
+                  className="text-yellow-400 text-xl tracking-tight"
+                  aria-label="5 étoiles sur 5"
+                >
+                  ★★★★★
+                </span>
+                <span className="text-sm text-white/80">sur Google</span>
+              </Link>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   href="/contact"

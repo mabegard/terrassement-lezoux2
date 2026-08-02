@@ -22,6 +22,13 @@ export const metadata: Metadata = {
     "Bland Terrassement, artisan terrassier à Lezoux. Spécialisé dans tous types de travaux de terrassement, aménagement extérieur et travaux publics. Devis gratuit.",
   keywords:
     "terrassement, Lezoux, artisan terrassier, travaux publics, aménagement extérieur, démolition, nivellement",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-48.png", sizes: "48x48", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  },
 };
 
 export default function RootLayout({
