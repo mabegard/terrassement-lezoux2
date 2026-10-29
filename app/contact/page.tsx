@@ -14,6 +14,7 @@ export default function Contact() {
   const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(
     null
   );
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -30,20 +31,40 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
+    setErrorMessage(null);
 
-    // Simuler l'envoi du formulaire
-    // Dans un vrai projet, vous devriez créer une API route pour gérer l'envoi d'email
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus("success");
-      setFormData({
-        nom: "",
-        email: "",
-        telephone: "",
-        sujet: "",
-        message: "",
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
-    }, 1000);
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setSubmitStatus("success");
+        setFormData({
+          nom: "",
+          email: "",
+          telephone: "",
+          sujet: "",
+          message: "",
+        });
+      } else {
+        setSubmitStatus("error");
+        setErrorMessage(
+          data.error || "Une erreur est survenue. Veuillez réessayer."
+        );
+      }
+    } catch {
+      setSubmitStatus("error");
+      setErrorMessage(
+        "Erreur de connexion. Vérifiez votre réseau, ou appelez le 06 74 46 95 81."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -163,13 +184,14 @@ export default function Contact() {
 
               {submitStatus === "success" && (
                 <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
-                  Message envoyé avec succès ! Nous vous répondrons rapidement.
+                  Message bien reçu. Une réponse vous sera envoyée à l’adresse
+                  indiquée, ou par téléphone.
                 </div>
               )}
 
               {submitStatus === "error" && (
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                  Une erreur est survenue. Veuillez réessayer.
+                  {errorMessage || "Une erreur est survenue. Veuillez réessayer."}
                 </div>
               )}
 
