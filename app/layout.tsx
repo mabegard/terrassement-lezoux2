@@ -17,6 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.terrassement-lezoux.fr"),
   title: "Bland Terrassement - Artisan terrassier à Lezoux depuis 14 ans",
   description:
     "Bland Terrassement, artisan terrassier à Lezoux. Spécialisé dans tous types de travaux de terrassement, aménagement extérieur et travaux publics. Devis gratuit.",

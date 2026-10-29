@@ -243,7 +243,7 @@ export default function Contact() {
                   Adresse
                 </h3>
                 <p className="text-gray-700 text-lg">
-                  82 Rue Felix Duchasseint
+                  82 A rue Félix Duchasseint
                   <br />
                   63190 LEZOUX
                 </p>
@@ -255,8 +255,8 @@ export default function Contact() {
                   Zone d'intervention
                 </h3>
                 <p className="text-gray-700">
-                  Nous intervenons dans toute la région Auvergne-Rhône-Alpes,
-                  avec une spécialisation sur Lezoux et ses environs.
+                  Nous intervenons dans le Puy-de-Dôme, à partir de Lezoux
+                  et de ses environs.
                 </p>
               </div>
             </div>

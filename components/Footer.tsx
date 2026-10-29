@@ -76,7 +76,7 @@ export default function Footer() {
                 </a>
               </li>
               <li className="mt-4">
-                82A Rue Felix Duchasseint
+                82 A rue Félix Duchasseint
                 <br />
                 63190 LEZOUX
               </li>
