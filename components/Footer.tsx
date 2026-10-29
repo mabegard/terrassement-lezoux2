@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { HORAIRES } from "@/lib/entreprise";
 
 export default function Footer() {
   return (
@@ -10,9 +11,17 @@ export default function Footer() {
               Bland Terrassement
             </h3>
             <p className="text-gray-300">
-              Artisan terrassier depuis 14 ans, spécialisé dans tous types de
+              Artisan terrassier depuis 2013, spécialisé dans tous types de
               travaux de terrassement et d'aménagement extérieur.
             </p>
+            <h4 className="text-lg font-semibold mt-6 mb-2">Horaires</h4>
+            <ul className="text-gray-300 space-y-1">
+              {HORAIRES.map((h) => (
+                <li key={h.jours}>
+                  {h.jours} : {h.heures}
+                </li>
+              ))}
+            </ul>
           </div>
           <div>
             <h4 className="text-lg font-semibold mb-4">Navigation</h4>
@@ -86,7 +95,10 @@ export default function Footer() {
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
           <p>
             © {new Date().getFullYear()} Bland Terrassement - Tous droits
-            réservés
+            réservés ·{" "}
+            <Link href="/mentions-legales" className="hover:text-orange-600">
+              Mentions légales
+            </Link>
           </p>
           <p className="mt-3 text-[10px] leading-none text-gray-500">
             Propulsé par Beg&apos;s Project 2025

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { METIERS } from "@/lib/metiers";
 
 export default function Home() {
   return (
@@ -12,7 +13,7 @@ export default function Home() {
           className="absolute inset-0 -z-20 bg-no-repeat"
           style={{
             backgroundImage:
-              "url('https://www.grandstravaux.org/wp-content/uploads/2019/06/Terrassement-outils.jpg')",
+              "url('/chantiers/cour-enrobe-gravier.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center center",
           }}
@@ -28,11 +29,14 @@ export default function Home() {
             <div
               style={{ textShadow: "0 3px 12px rgba(0, 0, 0, 0.45)" }}
             >
-              <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              <p className="text-xl md:text-2xl font-semibold mb-2">
                 Bland Terrassement
+              </p>
+              <h1 className="text-5xl md:text-6xl font-bold mb-6">
+                Terrassier à Lezoux
               </h1>
               <p className="text-xl md:text-2xl mb-4">
-                Artisan terrassier à Lezoux depuis 2013
+                Artisan terrassier depuis 2013, dans le Puy-de-Dôme
               </p>
               <p className="text-lg mb-6 text-white">
                 Spécialisé dans tous types de travaux de terrassement,
@@ -164,6 +168,23 @@ export default function Home() {
                 Évacuation et transport de terres, gravats et déchets de chantier.
               </p>
             </div>
+          </div>
+          <div className="mt-12 max-w-4xl mx-auto">
+            <h3 className="text-2xl font-bold text-center mb-6 text-orange-600">
+              Mes métiers en détail
+            </h3>
+            <ul className="flex flex-wrap justify-center gap-3">
+              {METIERS.map((m) => (
+                <li key={m.slug}>
+                  <Link
+                    href={`/prestations/${m.slug}`}
+                    className="inline-block px-4 py-2 rounded-full bg-orange-50 text-orange-700 font-medium hover:bg-orange-100"
+                  >
+                    {m.nom}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
           <div className="text-center mt-12">
             <Link

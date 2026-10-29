@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { METIERS } from "@/lib/metiers";
+
 export const metadata = {
   title: "Prestations - Bland Terrassement",
   description:
@@ -115,6 +118,27 @@ export default function Prestations() {
             </div>
           ))}
         </div>
+
+        <section className="mt-16 max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">
+            Mes métiers en détail
+          </h2>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {METIERS.map((m) => (
+              <li key={m.slug}>
+                <Link
+                  href={`/prestations/${m.slug}`}
+                  className="block card-relief p-6 h-full hover:-translate-y-0.5 transition-transform"
+                >
+                  <span className="block text-xl font-bold text-orange-600 mb-2">
+                    {m.nom}
+                  </span>
+                  <span className="block text-gray-600">{m.description}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
 
         <div className="mt-16 bg-orange-600 text-white p-8 rounded-lg text-center max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold mb-4">

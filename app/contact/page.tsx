@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { HORAIRES } from "@/lib/entreprise";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -251,13 +252,27 @@ export default function Contact() {
 
               <div>
                 <h3 className="font-semibold text-gray-900 mb-2 flex items-center">
-                  <span className="text-2xl mr-3">⏰</span>
+                  <span className="text-2xl mr-3">🗺️</span>
                   Zone d'intervention
                 </h3>
                 <p className="text-gray-700">
                   Nous intervenons dans le Puy-de-Dôme, à partir de Lezoux
                   et de ses environs.
                 </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-2 flex items-center">
+                  <span className="text-2xl mr-3">⏰</span>
+                  Horaires
+                </h3>
+                <ul className="text-gray-700">
+                  {HORAIRES.map((h) => (
+                    <li key={h.jours}>
+                      {h.jours} : {h.heures}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
