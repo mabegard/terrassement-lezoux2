@@ -262,3 +262,20 @@ export const METIERS: Metier[] = [
 export function getMetier(slug: string) {
   return METIERS.find((m) => m.slug === slug);
 }
+
+/** Photos de chantiers, une seule fois, avec la légende exacte. */
+export function photosChantiers(): { src: string; title: string; description: string }[] {
+  const vues = new Map<string, { src: string; title: string; description: string }>();
+  for (const metier of METIERS) {
+    for (const photo of metier.photos) {
+      if (!vues.has(photo.src)) {
+        vues.set(photo.src, {
+          src: photo.src,
+          title: photo.legende,
+          description: photo.alt,
+        });
+      }
+    }
+  }
+  return [...vues.values()];
+}

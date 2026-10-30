@@ -141,7 +141,7 @@ export default function Home() {
                 aménagements.
               </p>
             </div>
-            <div className="card-relief p-6">
+            <Link href="/prestations/enrobe-cour" className="card-relief p-6 block">
               <div className="text-4xl mb-4">🏡</div>
               <h3 className="text-xl font-semibold mb-3 text-orange-600">
                 Aménagement extérieur
@@ -149,8 +149,8 @@ export default function Home() {
               <p className="text-gray-600">
                 Création d'allées, de cours, de parkings et d'espaces verts.
               </p>
-            </div>
-            <div className="card-relief p-6">
+            </Link>
+            <Link href="/prestations/reseaux-vrd" className="card-relief p-6 block">
               <div className="text-4xl mb-4">🛣️</div>
               <h3 className="text-xl font-semibold mb-3 text-orange-600">
                 Travaux publics
@@ -158,7 +158,7 @@ export default function Home() {
               <p className="text-gray-600">
                 Voiries, réseaux, assainissement et travaux d'infrastructure.
               </p>
-            </div>
+            </Link>
             <div className="card-relief p-6">
               <div className="text-4xl mb-4">🌱</div>
               <h3 className="text-xl font-semibold mb-3 text-orange-600">
