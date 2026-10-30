@@ -1,9 +1,12 @@
+import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import AvisCarousel from "@/components/AvisCarousel";
+import { AVIS_PAGES_JAUNES, PAGES_JAUNES_AVIS_URL } from "@/lib/avis-publies";
 import {
   getGoogleReviews,
+  GOOGLE_NOTE_PUBLIQUE,
   GOOGLE_REVIEWS_URL,
-  type GoogleReview,
 } from "@/lib/google-reviews";
 
 export const revalidate = 86400;
@@ -11,7 +14,7 @@ export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Avis clients - Bland Terrassement",
   description:
-    "Avis Google des clients de Bland Terrassement, artisan terrassier à Lezoux.",
+    "Note Google 5/5 et avis clients de Bland Terrassement, artisan terrassier à Lezoux.",
 };
 
 function Stars({ count }: { count: number }) {
@@ -49,38 +52,54 @@ function GoogleMark({ className }: { className?: string }) {
   );
 }
 
-function ReviewCard({ review }: { review: GoogleReview }) {
+function LienExterne({
+  href,
+  children,
+}: {
+  href: string;
+  children: ReactNode;
+}) {
   return (
-    <article className="card-relief p-6">
-      <div className="flex items-center justify-between mb-4 gap-3">
-        <div className="flex items-center gap-3 min-w-0">
-          {review.profile_photo_url ? (
-            <img
-              src={review.profile_photo_url}
-              alt=""
-              className="w-10 h-10 rounded-full"
-            />
-          ) : null}
-          <div className="min-w-0">
-            <h3 className="font-bold text-gray-900 truncate">{review.author_name}</h3>
-            <p className="text-sm text-gray-500">{review.relative_time_description}</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-2 shrink-0">
-          <Stars count={review.rating || 5} />
-          <GoogleMark className="w-4 h-4" />
-        </div>
-      </div>
-      <p className="text-gray-700">{review.text}</p>
-    </article>
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-2 text-orange-600 hover:text-orange-700 font-semibold transition-colors"
+    >
+      {children}
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+        />
+      </svg>
+    </a>
   );
 }
 
 export default async function Avis() {
   const reviewsData = await getGoogleReviews();
-  const reviews = reviewsData.success ? reviewsData.reviews : [];
-  const rating = reviewsData.success ? reviewsData.rating : undefined;
-  const total = reviewsData.success ? reviewsData.totalReviews : undefined;
+  const avisGoogle =
+    reviewsData.success && reviewsData.reviews.length > 0
+      ? reviewsData.reviews.map((review) => ({
+          auteur: review.author_name,
+          note: review.rating || 5,
+          date: review.relative_time_description,
+          texte: review.text,
+        }))
+      : null;
+
+  const rating = reviewsData.success
+    ? (reviewsData.rating ?? GOOGLE_NOTE_PUBLIQUE.rating)
+    : GOOGLE_NOTE_PUBLIQUE.rating;
+  const total = reviewsData.success
+    ? (reviewsData.totalReviews ?? GOOGLE_NOTE_PUBLIQUE.totalReviews)
+    : GOOGLE_NOTE_PUBLIQUE.totalReviews;
+
+  const avis = avisGoogle ?? AVIS_PAGES_JAUNES;
+  const source = avisGoogle ? "Google" : "Pages Jaunes";
 
   return (
     <div className="py-16 bg-gray-50">
@@ -90,76 +109,52 @@ export default async function Avis() {
             Avis de mes clients
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            La satisfaction de mes clients est ma priorité. Les témoignages
-            sont ceux publiés sur Google.
+            La satisfaction de mes clients est ma priorité. Découvrez leurs
+            témoignages.
           </p>
         </div>
 
-        <div className="card-relief p-8 mb-8 max-w-2xl mx-auto text-center">
-          {rating != null && total != null ? (
-            <>
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <div className="text-6xl font-bold text-orange-600">
-                  {rating.toFixed(1)}
-                </div>
-                <div>
-                  <div className="mb-2 text-3xl">
-                    <Stars count={Math.round(rating)} />
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-600">
-                    <GoogleMark className="w-5 h-5" />
-                    <span className="font-semibold">Google</span>
-                  </div>
-                </div>
-              </div>
-              <p className="text-lg text-gray-600 mb-4">
-                Basé sur <strong>{total} avis</strong> sur Google
-              </p>
-            </>
-          ) : (
-            <div className="flex items-center justify-center gap-2 text-gray-700 mb-4">
-              <GoogleMark className="w-6 h-6" />
-              <p className="text-lg">
-                Les avis de mes clients sont publiés sur la fiche Google.
-              </p>
+        <div className="card-relief p-8 mb-10 max-w-2xl mx-auto text-center">
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <div className="text-6xl font-bold text-orange-600">
+              {rating.toFixed(1)}
             </div>
-          )}
-          <a
-            href={GOOGLE_REVIEWS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-orange-600 hover:text-orange-700 font-semibold transition-colors"
-          >
+            <div>
+              <div className="mb-2 text-3xl">
+                <Stars count={Math.round(rating)} />
+              </div>
+              <div className="flex items-center gap-2 text-gray-600">
+                <GoogleMark className="w-5 h-5" />
+                <span className="font-semibold">Google</span>
+              </div>
+            </div>
+          </div>
+          <p className="text-lg text-gray-600 mb-4">
+            Basé sur <strong>{total} avis</strong> sur Google
+          </p>
+          <LienExterne href={GOOGLE_REVIEWS_URL}>
             Voir tous les avis sur Google
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-              />
-            </svg>
-          </a>
+          </LienExterne>
         </div>
 
-        {reviews.length > 0 ? (
-          <div className="mb-8">
-            <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">
-              Derniers avis Google
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {reviews.map((review) => (
-                <ReviewCard
-                  key={`${review.author_name}-${review.time}`}
-                  review={review}
-                />
-              ))}
-            </div>
-            <p className="text-center text-sm text-gray-500 mt-6">
-              Google n’en transmet que quelques-uns. La liste complète est sur la fiche.
+        <div className="mb-8">
+          <h2 className="text-3xl font-bold text-center mb-2 text-gray-900">
+            {source === "Google" ? "Derniers avis Google" : "Témoignages"}
+          </h2>
+          <p className="text-center text-gray-600 mb-8">
+            {source === "Google"
+              ? "Extraits transmis par Google. La liste complète est sur la fiche."
+              : `${AVIS_PAGES_JAUNES.length} avis publiés sur Pages Jaunes, tous notés 5/5.`}
+          </p>
+          <AvisCarousel avis={avis} />
+          {source === "Pages Jaunes" ? (
+            <p className="text-center mt-6">
+              <LienExterne href={PAGES_JAUNES_AVIS_URL}>
+                Lire ces avis sur Pages Jaunes
+              </LienExterne>
             </p>
-          </div>
-        ) : null}
+          ) : null}
+        </div>
 
         <div className="mt-12 bg-orange-600 text-white p-8 rounded-lg text-center max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold mb-4">Vous aussi, faites-moi confiance !</h2>

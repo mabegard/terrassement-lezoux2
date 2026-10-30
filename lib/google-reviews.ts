@@ -1,4 +1,12 @@
-export const GOOGLE_REVIEWS_URL = "https://share.google/Xi6dMTlLtsgpj7Mwg";
+/** Fiche Google de Bland Terrassement (CID publié dans les réponses Pages Jaunes). */
+export const GOOGLE_REVIEWS_URL =
+  "https://www.google.com/maps?cid=165847554210482401&hl=fr";
+
+/** Note lue sur la fiche Google le 30 octobre 2026. */
+export const GOOGLE_NOTE_PUBLIQUE = {
+  rating: 5,
+  totalReviews: 41,
+} as const;
 
 export type GoogleReview = {
   author_name: string;
@@ -62,11 +70,7 @@ export async function getGoogleReviews(): Promise<GoogleReviewsResult> {
 
     const data = await response.json();
     if (data.status !== "OK") {
-      throw new Error(
-        `Erreur API Google: ${data.status}${
-          data.error_message ? ` — ${data.error_message}` : ""
-        }`
-      );
+      return { success: false, error: "Avis Google indisponibles" };
     }
 
     const result = data.result;
@@ -94,8 +98,7 @@ export async function getGoogleReviews(): Promise<GoogleReviewsResult> {
     };
 
     return payload;
-  } catch (error) {
-    console.error("Erreur récupération avis Google:", error);
+  } catch {
     if (memoryCache.current) return memoryCache.current.payload;
     return { success: false, error: "Avis Google indisponibles" };
   }
